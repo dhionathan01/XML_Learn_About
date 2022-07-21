@@ -15,7 +15,7 @@ function getFilmes() {
             console.log(jsonFilmes)
 
             for (let i in jsonFilmes['filmes']['filme']) {
-                console.log(jsonFilmes['filmes']['filme'][i])
+                let item = jsonFilmes['filmes']['filme'][i]
 
                 let divRow = document.createElement('div')
                 divRow.className = 'row'
@@ -24,19 +24,34 @@ function getFilmes() {
                 divCol.className = 'col'
 
                 let p1 = document.createElement('p')
-                p1.innerHTML = '<strong>Título:</strong> Titulo do filme'
+                p1.innerHTML = '<strong>Título:</strong> ' + item['titulo']['#text']
 
                 let p2 = document.createElement('p')
-                p2.innerHTML = '<strong>Resumo:</strong> Resumo do filme'
+                p2.innerHTML = '<strong>Resumo:</strong> ' + item['resumo']['#text']
 
+                let genero = ''
+                for (let g in item.genero) {
+                    // Adicionando uma espaço e uma vírgula para cada gênero
+                    if (genero) genero += ', '
+                    genero += (item.genero[g]['#text'])
+                }
                 let p3 = document.createElement('p')
-                p3.innerHTML = '<strong>Gênero:</strong> Gênero do filme'
+                p3.innerHTML = '<strong>Gênero:</strong> ' + genero
+
+                let elenco = ''
+                for (let e in item.elenco.ator) {
+                    // Adicionando uma espaço e uma vírgula para cada gênero
+                    if (elenco) elenco += ', '
+                    elenco += (item.elenco.ator[e]['#text'])
+                }
 
                 let p4 = document.createElement('p')
-                p4.innerHTML = '<strong>Elenco:</strong> Elenco do filme'
+                p4.innerHTML = '<strong>Elenco:</strong> Elenco do filme: ' + elenco
+
+
 
                 let p5 = document.createElement('p')
-                p5.innerHTML = '<strong>Data de lançamento:</strong> Data lançamento do filme'
+                p5.innerHTML = '<strong>Data de lançamento:</strong> ' + item.dataLancamento['#text'] + ' (' + item.dataLancamento['@attributes']['pais'] + ')'
 
                 let hr = document.createElement('hr')
 
